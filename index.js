@@ -96,6 +96,87 @@ class AnimalTable {
       this.renderInsideTableContain();
     }
   }
+  editAnimal(index) {
+    console.log("======edit", index);
+    const animal = this.jsonData[index]; // Get the selected animal
+
+    // Create Bootstrap Modal
+    const modal = document.createElement("div");
+    modal.className = "modal fade";
+    modal.id = "editModal";
+    modal.tabIndex = "-1";
+    modal.innerHTML = `
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Edit Animal</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="editForm">
+              <div class="mb-3">
+                <label for="edit-species" class="form-label">Species</label>
+                <input type="text" class="form-control" id="edit-species" value="${animal.species}" />
+              </div>
+              <div class="mb-3">
+                <label for="edit-name" class="form-label">Name</label>
+                <input type="text" class="form-control" id="edit-name" value="${animal.name}" />
+              </div>
+              <div class="mb-3">
+                <label for="edit-image" class="form-label">Image URL</label>
+                <input type="text" class="form-control" id="edit-image" value="${animal.image}" />
+              </div>
+              <div class="mb-3">
+                <label for="edit-size" class="form-label">Size (ft)</label>
+                <input type="number" class="form-control" id="edit-size" value="${animal.size}" />
+              </div>
+              <div class="mb-3">
+                <label for="edit-location" class="form-label">Location</label>
+                <input type="text" class="form-control" id="edit-location" value="${animal.location}" />
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-primary" id="save-edit">Save Changes</button>
+          </div>
+        </div>
+      </div>
+    `;
+
+    // Append Modal to Body
+    document.body.appendChild(modal);
+
+    // Initialize Bootstrap Modal
+    const bootstrapModal = new bootstrap.Modal(modal);
+    bootstrapModal.show();
+
+    // Save Changes
+    document.getElementById("save-edit").addEventListener("click", () => {
+      const updatedAnimal = {
+        species: document.getElementById("edit-species").value,
+        name: document.getElementById("edit-name").value,
+        image: document.getElementById("edit-image").value,
+        size: parseFloat(document.getElementById("edit-size").value),
+        location: document.getElementById("edit-location").value,
+      };
+
+      // Update the JSON data
+      this.jsonData[index] = updatedAnimal;
+
+      // Hide and remove modal
+      bootstrapModal.hide();
+      modal.remove();
+
+      // Re-render the table
+      this.renderInsideTableContain();
+    });
+
+    // Remove modal from DOM after hiding
+    modal.addEventListener("hidden.bs.modal", () => {
+      modal.remove();
+    });
+  }
   renderInsideTableContain() {
     // Get the table's tbody element
     const table = document.getElementById(this.tableId);
@@ -139,7 +220,7 @@ class AnimalTable {
       const editButton = document.createElement("button");
       editButton.className = "btn btn-warning btn-sm mx-1";
       editButton.textContent = "Edit";
-      //   editButton.addEventListener("click", () => this.editAnimal(index));
+      editButton.addEventListener("click", () => this.editAnimal(index));
 
       actionTd.appendChild(deleteButton);
       actionTd.appendChild(editButton);
