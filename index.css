@@ -1,0 +1,39 @@
+.container h1 {
+    color: rgb(194, 145, 81);
+    text-align: center;
+  }
+  .blue-text {
+    color: blue;
+    font-style: italic;
+    font-weight: bold;
+  }
+  .image {
+    border: 2px solid black;
+    height: 100px;
+    width: 180px;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  .image:hover {
+    transform: scale(1.3);
+  }
+  .modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+  }
+  .modal {
+    z-index: 1050 !important;
+  }
+  .modal-backdrop {
+    z-index: 1040 !important;
+  }
+    
+  .modal button {
+    margin: 5px;
+  }
