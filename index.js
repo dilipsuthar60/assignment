@@ -99,7 +99,6 @@ class AnimalTable {
     }
   }
   editAnimal(index) {
-    console.log("======edit", index);
     const animal = this.jsonData[index]; // Get the selected animal
 
     // Create Bootstrap Modal
@@ -245,7 +244,8 @@ class AnimalTable {
     this.renderInsideTableContain();
   }
 }
-// Instantiate Tables
+
+// Instantiate Big Cats Tables
 const bigCatsTable = new AnimalTable("big-cats", "Big Cats", bigCatsData, [
   "species",
   "name",
@@ -254,12 +254,15 @@ const bigCatsTable = new AnimalTable("big-cats", "Big Cats", bigCatsData, [
 ]);
 bigCatsTable.renderTable();
 
+
+// Instantiate Dogs Tables
 const dogsTable = new AnimalTable("dogs", "Dogs", dogsData, [
   "name",
   "location",
 ]);
 dogsTable.renderTable();
 
+// Instantiate Bigs Fish Tables
 const bigFishTable = new AnimalTable(
   "big-fish",
   "Big Fish",
